@@ -1,3 +1,16 @@
+/**
+  ******************************************************************************
+  * @file    Game.cpp
+  * @author  Joshua Haden
+  * @version V0.0.0
+  * @date    30-DEC-2019
+  * @brief   basic functions in order for the game to operate
+  ******************************************************************************
+  * @attention
+  *
+  *
+  ******************************************************************************
+  */
 #include "PCH.h"
 #include "Game.h"
 #include "MapHandler.h"
