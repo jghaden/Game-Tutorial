@@ -18,7 +18,7 @@ int main()
 {
 	Game("testing_room_5_1.room");
 
-	SetColor(0x0f);
+	SetColor(0xF);
 
 	return 0;
 }

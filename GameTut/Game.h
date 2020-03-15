@@ -57,7 +57,7 @@
 #define MAP_COLOR_TREE 0x2
 
 #define MAP_COLOR_WATER 0x9
-#define MAP_COLOR_DOOR 0xD
+#define MAP_COLOR_DOOR 0xC
 
 #define BORDER_TYPE_MAP 0
 

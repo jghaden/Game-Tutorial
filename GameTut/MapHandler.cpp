@@ -10,7 +10,8 @@
   *
   *
   ******************************************************************************
-  */#include "pch.h"
+  */
+#include "pch.h"
 #include "Game.h"
 #include "MapHandler.h"
 
