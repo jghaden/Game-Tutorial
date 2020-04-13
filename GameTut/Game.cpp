@@ -139,7 +139,7 @@ MAP_TILE MapLegend(int i)
 			p = { '.', MAP_COLOR_DIRT };
 			break;
 		case MAP_GRASS:
-			p = { '/', MAP_COLOR_GRASS_LIGHT };
+			p = { '#', MAP_COLOR_GRASS_LIGHT };
 			break;
 		case MAP_SAND:
 			p = { '#', MAP_COLOR_SAND };
@@ -275,11 +275,15 @@ void Game(std::string fileName)
 		{
 			switch (tmp)
 			{
+				case MAP_GRASS:
+					Sleep(15);
+					break;
 				case MAP_SAND:
-					Sleep(100);
+					Sleep(60);
 					break;
 				case MAP_WATER:
-					Sleep(5);
+					player.x = player.oX;
+					player.y = player.oY;
 					break;
 				case MAP_OBJECTIVE:
 					map.objectiveCount--;
