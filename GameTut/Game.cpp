@@ -11,7 +11,7 @@
   *
   ******************************************************************************
   */
-#include "PCH.h"
+#include "pch.h"
 #include "Game.h"
 #include "MapHandler.h"
 #include "Player.h"
@@ -120,9 +120,9 @@ void ShowConsoleCursor(bool showFlag)
 	SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-PIXEL MapLegend(int i)
+MAP_TILE MapLegend(int i)
 {
-	PIXEL p;
+	MAP_TILE p;
 
 	switch (i)
 	{
@@ -160,7 +160,7 @@ PIXEL MapLegend(int i)
 	}
 
 	if(i >= MAP_DOOR_MIN)
-		p = { '+', MAP_COLOR_DOOR };
+		p = { '³', MAP_COLOR_DOOR };
 
 	return p;
 }

@@ -63,7 +63,7 @@
 
 #define LOOP(n) for(int i = 0; i < n; i++)
 
-struct PIXEL
+struct MAP_TILE
 {
 	char ch;
 	int color;
@@ -82,7 +82,7 @@ void SetSize(int w, int h);
 void ClearScreen();
 void ShowConsoleCursor(bool showFlag);
 
-PIXEL MapLegend(int i);
+MAP_TILE MapLegend(int i);
 
 bool isDoor(int i);
 
