@@ -7,7 +7,7 @@ Some people have trouble figuring out what to do for a small project to continue
 
 ## Project Preview
 <p>
-	<img src="capture/1.png">
+	<img src="capture/1.png" width="40%">
 	<em>ASCII island map with basic debug info</em>
 	<img src="capture/2.png">
 	<em>Maps and rooms dynamically link to each other</em>
