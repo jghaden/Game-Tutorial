@@ -1,5 +1,5 @@
 
-# cpp-game-tutorial
+# C++ Game Tutorial
 C++ tutorial for making a basic framework to easily construct a game with user made rooms and maps
 
 ## Why this Tutorial?
