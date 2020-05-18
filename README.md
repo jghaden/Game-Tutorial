@@ -11,5 +11,5 @@ Some people have trouble figuring out what to do for a small project to continue
 |<em>Maps and rooms dynamically link to each other (1/2)</em>|<em>Maps and rooms dynamically link to each other (2/2)</em>|
 |<img src="capture/preview_3.png">|<img src="capture/preview_4.png">|
 |<em>Objective count adjusts per map and room (1/2)</em>|<em>Objective count adjusts per map and room (2/2)</em>|
-|<img src="capture/preview_5.png">|<img src="capture/preview_6.png">|
+|<img src="capture/preview_5.png">|<img src="capture/preview_6.png" width="80%">|
 |<em>ASCII island map with basic debug info</em>|<em>ASCII river map with basic debug info</em>|
