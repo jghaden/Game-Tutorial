@@ -72,7 +72,11 @@ struct MAP_TILE
 void gotoXY(int x, int y);
 
 template<typename T>
-void WriteAt(int x, int y, T data);
+inline void WriteAt(int x, int y, T data)
+{
+	gotoXY(x, y);
+	std::cout << data;
+}
 
 void DrawBorder(int x, int y, int w, int h);
 

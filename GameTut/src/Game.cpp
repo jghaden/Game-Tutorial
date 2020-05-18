@@ -22,12 +22,7 @@ void gotoXY(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-template<typename T>
-void WriteAt(int x, int y, T data)
-{
-	gotoXY(x, y);
-	std::cout << data;
-}
+
 
 void DrawBorder(int x, int y, int w, int h)
 {
