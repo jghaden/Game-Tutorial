@@ -21,10 +21,13 @@
     <ClInclude Include="inc\MapHandler.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\pch.h">
+    <ClInclude Include="inc\Player.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Player.h">
+    <ClInclude Include="inc\System.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\PCH.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,10 +41,10 @@
     <ClCompile Include="src\MapHandler.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\pch.cpp">
+    <ClCompile Include="src\Player.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Player.cpp">
+    <ClCompile Include="src\System.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

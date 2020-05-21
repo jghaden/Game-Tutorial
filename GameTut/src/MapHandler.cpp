@@ -2,33 +2,68 @@
   ******************************************************************************
   * @file    MapHandler.cpp
   * @author  Joshua Haden
-  * @version V0.0.0
-  * @date    30-DEC-2019
-  * @brief   load and display map from file to console
+  * @version V0.1.0
+  * @date    20-MAY-2020
+  * @brief   Load and display map from file to console
   ******************************************************************************
   * @attention
   *
   *
   ******************************************************************************
   */
-#include "pch.h"
+#include "PCH.h"
+
+#include "System.h"
 #include "Game.h"
 #include "MapHandler.h"
 
-int VectorIndex(std::vector<Door> &list, int n)
+Door::Door(int id, _COORDS pos, std::string file)
 {
-	int tmp = -1;
+	this->id = id;
+	this->pos = pos;
+	this->file = file;
+}
 
-	for (int i = 0; i < list.size(); i++)
-	{
-		if (list[i].id == n)
-		{
-			tmp = i;
-			break;
-		}
-	}
+Map::Map(std::string file)
+{
+	this->file = file;
+}
 
-	return tmp;
+// Getters
+int Map::GetWidth() { return width; }
+int Map::GetHeight() { return height; }
+
+std::string Map::GetFile()
+{
+	return file;
+}
+
+int Map::GetState(int x, int y)
+{
+	if (x < 0 || y < 0 || x > width - 1 || y > height - 1)
+		return 1;
+	else
+		return grid[y][x];
+}
+
+// Setters
+void Map::SetFile(std::string file) { this->file = file; }
+void Map::SetState(int x, int y, int i) { grid[y][x] = i; }
+
+// Main
+void Map::Info()
+{
+	std::cout << "Map ID:\t\t" << id << std::endl;
+	std::cout << "Map Name:\t" << name << std::endl;
+	std::cout << "Size:\t\t" << width << 'x' << height << std::endl;
+	std::cout << "Objective:\t" << objectiveCount << std::endl;
+}
+
+void Map::Init()
+{
+	grid.clear();
+	doors.clear();
+	grid.resize(height, std::vector<int>(width));
 }
 
 void Map::Load()
@@ -48,7 +83,7 @@ void Map::Load()
 		inFile >> std::dec >> width;
 		inFile >> std::dec >> height;
 
-		init();
+		Init();
 
 		inFile.ignore(1, '\n');
 
@@ -146,9 +181,25 @@ void Map::Show()
 	{
 		for (int x = 0; x < width; x++)
 		{
-			SetColor(MapLegend(getIntAt(x, y)).color);
-			WriteAt(x, y, MapLegend(getIntAt(x, y)).ch);
+			SetColor(MapLegend(GetState(x, y)).color);
+			WriteAt(x, y, MapLegend(GetState(x, y)).ch);
 		}
 		std::cout << std::endl;
 	}
+}
+
+int VectorIndex(std::vector<Door> &list, int n)
+{
+	int tmp = -1;
+
+	for (int i = 0; i < list.size(); i++)
+	{
+		if (list[i].id == n)
+		{
+			tmp = i;
+			break;
+		}
+	}
+
+	return tmp;
 }

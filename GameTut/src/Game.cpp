@@ -2,118 +2,21 @@
   ******************************************************************************
   * @file    Game.cpp
   * @author  Joshua Haden
-  * @version V0.0.0
-  * @date    30-DEC-2019
-  * @brief   basic functions in order for the game to operate
+  * @version V0.1.0
+  * @date    20-MAY-2020
+  * @brief   Basic functions in order for the game to operate
   ******************************************************************************
   * @attention
   *
   *
   ******************************************************************************
   */
-#include "pch.h"
+#include "PCH.h"
+
+#include "System.h"
 #include "Game.h"
 #include "MapHandler.h"
 #include "Player.h"
-
-void gotoXY(int x, int y)
-{
-	COORD coord = { x, y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-
-
-
-void DrawBorder(int x, int y, int w, int h)
-{
-	gotoXY(x, y);
-	SetColor(0xf);
-	
-	WriteAt(x, y, 'Ú');
-	WriteAt(x + w, y, '¿');
-
-	WriteAt(x, y + h, 'À');
-	WriteAt(x, y + h, 'Ù');
-
-	for (int i = x; i < w; i++)
-	{
-		WriteAt(i, y, 'Ä');
-		WriteAt(i, h - 1, 'Ä');
-	}
-
-	for (int j = y; j < h; j++)
-	{
-		WriteAt(x, j, '³');
-		WriteAt(w, j, '³');
-	}
-}
-
-void SetColor(int c)
-{
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, c);
-}
-
-void SetSize(int w, int h)
-{
-	CONSOLE_FONT_INFOEX cfi;
-	cfi.cbSize = sizeof(cfi);
-	cfi.nFont = 0;
-	cfi.dwFontSize.X = w;
-	cfi.dwFontSize.Y = h;
-	cfi.FontFamily = FF_DONTCARE;
-	cfi.FontWeight = FW_NORMAL;
-	wcscpy_s(cfi.FaceName, L"Consolas"); // Choose your font
-	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
-}
-
-void ClearScreen()
-{
-	HANDLE                     hStdOut;
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	DWORD                      count;
-	DWORD                      cellCount;
-	COORD                      homeCoords = { 0, 0 };
-
-	hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	if (hStdOut == INVALID_HANDLE_VALUE) return;
-
-	/* Get the number of cells in the current buffer */
-	if (!GetConsoleScreenBufferInfo(hStdOut, &csbi)) return;
-	cellCount = csbi.dwSize.X *csbi.dwSize.Y;
-
-	/* Fill the entire buffer with spaces */
-	if (!FillConsoleOutputCharacter(
-		hStdOut,
-		(TCHAR) ' ',
-		cellCount,
-		homeCoords,
-		&count
-	)) return;
-
-	/* Fill the entire buffer with the current colors and attributes */
-	if (!FillConsoleOutputAttribute(
-		hStdOut,
-		csbi.wAttributes,
-		cellCount,
-		homeCoords,
-		&count
-	)) return;
-
-	/* Move the cursor home */
-	SetConsoleCursorPosition(hStdOut, homeCoords);
-}
-
-void ShowConsoleCursor(bool showFlag)
-{
-	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	CONSOLE_CURSOR_INFO     cursorInfo;
-
-	GetConsoleCursorInfo(out, &cursorInfo);
-	cursorInfo.bVisible = showFlag;
-	SetConsoleCursorInfo(out, &cursorInfo);
-}
 
 MAP_TILE MapLegend(int i)
 {
@@ -220,7 +123,7 @@ void Game(std::string fileName)
 
 		gotoXY(0, map.GetHeight() + 1);
 		SetColor(MAP_COLOR_WALL);
-		map.info();
+		map.Info();
 		std::cout << player.x << "x" << player.y << "    " << std::endl;
 
 		SetColor(MAP_COLOR_PLAYER);
@@ -259,11 +162,11 @@ void Game(std::string fileName)
 				break;
 		}
 
-		tmp = map.getIntAt(player.x, player.y);
+		tmp = map.GetState(player.x, player.y);
 
 		if (tmp >= MAP_DOOR_MIN && (!isTraveling))
 		{
-			map.setFile(map.doors[VectorIndex(map.doors, tmp)].file);
+			map.SetFile(map.doors[VectorIndex(map.doors, tmp)].file);
 			MapChange = true;
 			isTraveling = true;
 		} else
@@ -282,7 +185,7 @@ void Game(std::string fileName)
 					break;
 				case MAP_OBJECTIVE:
 					map.objectiveCount--;
-					map.setIntAt(player.x, player.y, MAP_EMPTY);
+					map.SetState(player.x, player.y, MAP_EMPTY);
 					if (map.objectiveCount <= 0)
 						hasWon = true;
 					break;
@@ -295,29 +198,29 @@ void Game(std::string fileName)
 						isTraveling = false;
 					break;
 			}
-			SetColor(MapLegend(map.getIntAt(player.oX, player.oY)).color);
-			WriteAt(player.oX, player.oY, MapLegend(map.getIntAt(player.oX, player.oY)).ch);
+			SetColor(MapLegend(map.GetState(player.oX, player.oY)).color);
+			WriteAt(player.oX, player.oY, MapLegend(map.GetState(player.oX, player.oY)).ch);
 		}
 		if (!isDoor(tmp))
 		{
 			if (player.y <= 0 && !map.sNORTH.empty())
 			{
-				map.setFile(map.sNORTH);
+				map.SetFile(map.sNORTH);
 				MapChange = true;
 			}
 			if (player.y >= map.GetHeight() - 1 && !map.sSOUTH.empty())
 			{
-				map.setFile(map.sSOUTH);
+				map.SetFile(map.sSOUTH);
 				MapChange = true;
 			}
 			if (player.x <= 0 && !map.sWEST.empty())
 			{
-				map.setFile(map.sWEST);
+				map.SetFile(map.sWEST);
 				MapChange = true;
 			}
 			if (player.x >= map.GetWidth() - 1 && !map.sEAST.empty())
 			{
-				map.setFile(map.sEAST);
+				map.SetFile(map.sEAST);
 				MapChange = true;
 			}
 		}

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    Game.h
   * @author  Joshua Haden
-  * @version V0.0.0
-  * @date    30-DEC-2019
+  * @version V0.1.0
+  * @date    20-MAY-2020
   * @brief   Header for Game.cpp
   ******************************************************************************
   * @attention
@@ -11,7 +11,7 @@
   *
   ******************************************************************************
   */
-#include "pch.h"
+#include "PCH.h"
 
 // Controls
 #define KEY_UP 72
@@ -61,30 +61,11 @@
 
 #define BORDER_TYPE_MAP 0
 
-#define LOOP(n) for(int i = 0; i < n; i++)
-
 struct MAP_TILE
 {
 	char ch;
 	int color;
 };
-
-void gotoXY(int x, int y);
-
-template<typename T>
-inline void WriteAt(int x, int y, T data)
-{
-	gotoXY(x, y);
-	std::cout << data;
-}
-
-void DrawBorder(int x, int y, int w, int h);
-
-void SetColor(int c);
-void SetSize(int w, int h);
-
-void ClearScreen();
-void ShowConsoleCursor(bool showFlag);
 
 MAP_TILE MapLegend(int i);
 

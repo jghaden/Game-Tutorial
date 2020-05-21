@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    MapHandler.h
   * @author  Joshua Haden
-  * @version V0.0.0
-  * @date    30-DEC-2019
+  * @version V0.1.0
+  * @date    20-MAY-2020
   * @brief   Header for MapHandler.cpp
   ******************************************************************************
   * @attention
@@ -26,15 +26,8 @@ public:
 	std::string file;
 
 	Door() {}
-	Door(int id, _COORDS pos, std::string file)
-	{
-		this->id = id;
-		this->pos = pos;
-		this->file = file;
-	}
+	Door(int id, _COORDS pos, std::string file);
 };
-
-int VectorIndex(std::vector<Door> &list, int n);
 
 class Map
 {
@@ -48,59 +41,24 @@ public:
 	_COORDS playerStart = { -1,-1 };
 	int objectiveCount;
 
-	Map(std::string file)
-	{
-		this->file = file;
-	}
+	Map(std::string file);
 
-	void info()
-	{
-		std::cout << "Map ID:\t\t" << id << std::endl;
-		std::cout << "Map Name:\t" << name << std::endl;
-		std::cout << "Size:\t\t" << width << 'x' << height << std::endl;
-		std::cout << "Objective:\t" << objectiveCount << std::endl;
-	}
+	// Getters
+	std::string GetFile();
 
-	void init()
-	{
-		grid.clear();
-		doors.clear();
-		grid.resize(height, std::vector<int>(width));
-	}
+	int GetState(int x, int y);
+	int GetWidth();
+	int GetHeight();
 
-	void setFile(std::string file)
-	{
-		this->file = file;
-	}
+	// Setters
+	void SetFile(std::string file);
+	void SetState(int x, int y, int i);
 
-	void setIntAt(int x, int y, int i)
-	{
-		grid[y][x] = i;
-	}
-
-	std::string GetFile()
-	{
-		return file;
-	}
-
-	int getIntAt(int x, int y)
-	{
-		if (x < 0 || y < 0 || x > width - 1 || y > height - 1)
-			return 1;
-		else
-			return grid[y][x];
-	}
-
-	int GetWidth()
-	{
-		return width;
-	}
-
-	int GetHeight()
-	{
-		return height;
-	}
-
+	// Main
+	void Info();
+	void Init();
 	void Load();
 	void Show();
 };
+
+int VectorIndex(std::vector<Door> &list, int n);
